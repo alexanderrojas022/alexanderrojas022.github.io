@@ -1,1 +1,386 @@
-<h1> holaa </h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Garaje Minúsculo · Coches a escala para coleccionistas</title>
+<meta name="description" content="Garaje Minúsculo es una empresa (inventada) dedicada a la colección de coches pequeños a escala 1:64, 1:43 y 1:18.">
+<style>
+  :root{
+    --bg:#fff8ec;
+    --ink:#1f1b2d;
+    --muted:#6b6478;
+    --brand:#ff5a36;
+    --brand-dark:#d93a18;
+    --accent:#2b59ff;
+    --sun:#ffc93c;
+    --mint:#2ec4a6;
+    --card:#ffffff;
+    --line:#eadfca;
+    --radius:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.6;
+  }
+  img,svg{max-width:100%;display:block}
+  a{color:inherit}
+  .wrap{width:min(1120px,92%);margin-inline:auto}
+
+  /* NAV */
+  header.nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(255,248,236,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:2px solid var(--line);
+  }
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;text-decoration:none;letter-spacing:-.3px}
+  .logo .dot{width:34px;height:34px;border-radius:50%;background:var(--brand);display:grid;place-items:center}
+  .logo .dot svg{width:22px;height:22px;color:#fff}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav a{text-decoration:none;font-weight:700;color:var(--muted);transition:color .2s}
+  nav a:hover{color:var(--brand)}
+  .btn{
+    display:inline-block;padding:13px 26px;border-radius:999px;
+    background:var(--brand);color:#fff;font-weight:800;text-decoration:none;
+    border:none;cursor:pointer;font-size:1rem;font-family:inherit;
+    box-shadow:0 5px 0 var(--brand-dark);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn:hover{transform:translateY(2px);box-shadow:0 3px 0 var(--brand-dark)}
+  .btn.alt{background:var(--ink);box-shadow:0 5px 0 #000}
+  .btn.alt:hover{box-shadow:0 3px 0 #000}
+
+  /* HERO */
+  .hero{padding:70px 0 40px;overflow:hidden}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .tag{
+    display:inline-block;background:var(--sun);padding:6px 14px;border-radius:999px;
+    font-weight:800;font-size:.85rem;margin-bottom:18px;
+  }
+  h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.05;letter-spacing:-1.5px;margin-bottom:18px}
+  h1 span{color:var(--brand)}
+  .hero p.lead{font-size:1.15rem;color:var(--muted);max-width:520px;margin-bottom:28px}
+  .hero .actions{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-art{
+    background:var(--accent);border-radius:36px;padding:30px;position:relative;
+    transform:rotate(2deg);
+    box-shadow:10px 10px 0 var(--ink);
+  }
+  .hero-art .road{height:10px;border-radius:5px;background:repeating-linear-gradient(90deg,#fff 0 28px,transparent 28px 52px);opacity:.6;margin-top:6px}
+  .hero-art svg{width:100%;height:auto;color:var(--sun)}
+  .stats{display:flex;gap:34px;margin-top:36px;flex-wrap:wrap}
+  .stats div strong{display:block;font-size:2rem;letter-spacing:-1px}
+  .stats div span{color:var(--muted);font-size:.9rem}
+
+  /* SECTIONS */
+  section{padding:70px 0}
+  .kicker{color:var(--brand);font-weight:800;text-transform:uppercase;letter-spacing:2px;font-size:.8rem}
+  h2{font-size:clamp(1.7rem,3.5vw,2.5rem);letter-spacing:-1px;margin:8px 0 14px}
+  .sub{color:var(--muted);max-width:620px;margin-bottom:40px}
+
+  /* ABOUT */
+  .about{background:var(--ink);color:#fff;border-radius:44px;margin:0 2%}
+  .about .sub{color:#c8c2d6}
+  .about .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .about .item{background:#2a2540;border-radius:var(--radius);padding:26px}
+  .about .item .ico{font-size:2rem;margin-bottom:10px}
+  .about .item h3{margin-bottom:6px}
+  .about .item p{color:#c8c2d6;font-size:.95rem}
+
+  /* COLLECTION */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:26px}
+  .card{
+    background:var(--card);border:2px solid var(--line);border-radius:var(--radius);
+    padding:18px;transition:transform .2s, box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 12px 0 var(--line)}
+  .card .stage{border-radius:14px;padding:22px 14px 10px;margin-bottom:14px}
+  .card .stage svg{width:100%;height:auto}
+  .card h3{font-size:1.15rem}
+  .card .meta{display:flex;gap:8px;margin:8px 0;flex-wrap:wrap}
+  .pill{font-size:.75rem;font-weight:800;padding:3px 10px;border-radius:999px;background:#f1ead9}
+  .card p{font-size:.92rem;color:var(--muted)}
+  .card .price{margin-top:12px;font-weight:800;font-size:1.1rem;display:flex;justify-content:space-between;align-items:center}
+  .card .price small{font-weight:600;color:var(--muted)}
+
+  /* SCALES */
+  .scales{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .scale{
+    border-radius:var(--radius);padding:28px;border:2px solid var(--ink);background:#fff;
+  }
+  .scale .big{font-size:3rem;font-weight:900;letter-spacing:-2px;line-height:1}
+  .scale:nth-child(1) .big{color:var(--brand)}
+  .scale:nth-child(2) .big{color:var(--accent)}
+  .scale:nth-child(3) .big{color:var(--mint)}
+  .scale h3{margin:8px 0 6px}
+  .scale p{color:var(--muted);font-size:.95rem}
+
+  /* TIMELINE */
+  .timeline{border-left:4px solid var(--sun);padding-left:28px;max-width:720px}
+  .t-item{position:relative;margin-bottom:30px}
+  .t-item::before{
+    content:"";position:absolute;left:-39px;top:6px;width:18px;height:18px;border-radius:50%;
+    background:var(--brand);border:4px solid var(--bg);
+  }
+  .t-item b{color:var(--brand)}
+
+  /* CLUB */
+  .club{
+    background:linear-gradient(135deg,var(--brand),#ff8a3d);color:#fff;
+    border-radius:44px;margin:0 2%;
+  }
+  .club .wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+  .club h2{color:#fff}
+  .club ul{list-style:none;margin-top:14px}
+  .club li{padding:6px 0;font-weight:700}
+  .club li::before{content:"✔ ";color:var(--sun)}
+  form{background:#fff;color:var(--ink);padding:28px;border-radius:var(--radius);box-shadow:8px 8px 0 rgba(0,0,0,.25)}
+  form label{display:block;font-weight:800;font-size:.85rem;margin:12px 0 4px}
+  form input,form select,form textarea{
+    width:100%;padding:12px 14px;border:2px solid var(--line);border-radius:12px;
+    font-family:inherit;font-size:1rem;background:#fffdf8;
+  }
+  form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--accent)}
+  form .btn{margin-top:18px;width:100%}
+  .ok{display:none;margin-top:14px;font-weight:800;color:#0f8a6f}
+
+  /* FOOTER */
+  footer{padding:40px 0;text-align:center;color:var(--muted);font-size:.9rem}
+  footer strong{color:var(--ink)}
+
+  @media(max-width:860px){
+    .hero .wrap,.club .wrap{grid-template-columns:1fr}
+    .about .grid,.scales{grid-template-columns:1fr}
+    nav ul{display:none}
+    .hero-art{transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- Plantilla reutilizable de coche (dibujo original) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="coche" viewBox="0 0 200 100">
+      <path d="M12 70 Q12 52 34 48 L62 26 Q68 20 80 20 L128 20 Q142 20 150 30 L166 48 Q190 52 190 70 L190 76 L12 76 Z" fill="currentColor"/>
+      <path d="M70 28 L84 28 L84 46 L52 46 Z" fill="#cfe8ff" opacity=".95"/>
+      <path d="M92 28 L126 28 Q134 28 140 36 L148 46 L92 46 Z" fill="#cfe8ff" opacity=".95"/>
+      <rect x="12" y="66" width="178" height="6" fill="#000" opacity=".15"/>
+      <circle cx="54" cy="76" r="16" fill="#1f1b2d"/><circle cx="54" cy="76" r="7" fill="#e7e2f0"/>
+      <circle cx="148" cy="76" r="16" fill="#1f1b2d"/><circle cx="148" cy="76" r="7" fill="#e7e2f0"/>
+      <rect x="180" y="56" width="10" height="7" rx="2" fill="#fff6b0"/>
+      <rect x="12" y="56" width="7" height="7" rx="2" fill="#ff4d4d"/>
+    </symbol>
+    <symbol id="rueda" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="3"/>
+      <circle cx="12" cy="12" r="3" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#inicio">
+      <span class="dot"><svg><use href="#rueda"/></svg></span>
+      Garaje Minúsculo
+    </a>
+    <nav>
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#coleccion">Colección</a></li>
+        <li><a href="#escalas">Escalas</a></li>
+        <li><a href="#historia">Historia</a></li>
+        <li><a href="#club">Club</a></li>
+      </ul>
+    </nav>
+    <a class="btn" href="#club">Únete</a>
+  </div>
+</header>
+
+<main id="inicio">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <span class="tag">🏁 Coleccionismo a pequeña escala</span>
+        <h1>Grandes pasiones en <span>coches pequeños</span></h1>
+        <p class="lead">
+          En Garaje Minúsculo diseñamos, catalogamos y cuidamos colecciones de coches en miniatura
+          para quienes saben que lo mejor viene en envase pequeño.
+        </p>
+        <div class="actions">
+          <a class="btn" href="#coleccion">Ver la colección</a>
+          <a class="btn alt" href="#club">Hazte socio</a>
+        </div>
+        <div class="stats">
+          <div><strong>1.200+</strong><span>Modelos catalogados</span></div>
+          <div><strong>3</strong><span>Escalas disponibles</span></div>
+          <div><strong>8.500</strong><span>Socios del club</span></div>
+        </div>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 200 100" role="img" aria-label="Coche en miniatura"><use href="#coche"/></svg>
+        <div class="road"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOSOTROS -->
+  <section class="about" id="nosotros">
+    <div class="wrap">
+      <span class="kicker" style="color:var(--sun)">Quiénes somos</span>
+      <h2>Una empresa nacida en un cajón de juguetes</h2>
+      <p class="sub">
+        Garaje Minúsculo es una empresa ficticia creada desde cero para este proyecto.
+        Imaginamos un taller donde cada miniatura se trata como una pieza de museo.
+      </p>
+      <div class="grid">
+        <div class="item"><div class="ico">🔍</div><h3>Catalogación</h3><p>Fichas detalladas con año, escala, tirada y estado de cada pieza.</p></div>
+        <div class="item"><div class="ico">🛠️</div><h3>Restauración</h3><p>Devolvemos el brillo a pinturas gastadas y ruedas que ya no giran.</p></div>
+        <div class="item"><div class="ico">🤝</div><h3>Intercambio</h3><p>Un mercado seguro entre socios para completar series y colecciones.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLECCION -->
+  <section id="coleccion">
+    <div class="wrap">
+      <span class="kicker">Catálogo</span>
+      <h2>Piezas destacadas</h2>
+      <p class="sub">Todos los modelos son inventados: marcas y nombres ficticios creados para esta web.</p>
+
+      <div class="cards">
+        <article class="card">
+          <div class="stage" style="background:#ffe3dc;color:#ff5a36"><svg viewBox="0 0 200 100"><use href="#coche"/></svg></div>
+          <h3>Gatito 500 Turbo</h3>
+          <div class="meta"><span class="pill">1:64</span><span class="pill">1974</span><span class="pill">Rara</span></div>
+          <p>Urbanita juguetón de ruedas anchas y escape cromado. Un clásico de las vitrinas.</p>
+          <div class="price">12,90 € <small>Edición limitada</small></div>
+        </article>
+
+        <article class="card">
+          <div class="stage" style="background:#dbe4ff;color:#2b59ff"><svg viewBox="0 0 200 100"><use href="#coche"/></svg></div>
+          <h3>Marea Azul GT</h3>
+          <div class="meta"><span class="pill">1:43</span><span class="pill">1988</span><span class="pill">Común</span></div>
+          <p>Deportivo de costa con pintura nacarada y neumáticos de goma original.</p>
+          <div class="price">24,50 € <small>En stock</small></div>
+        </article>
+
+        <article class="card">
+          <div class="stage" style="background:#fff2c4;color:#e8a800"><svg viewBox="0 0 200 100"><use href="#coche"/></svg></div>
+          <h3>Girasol Rally</h3>
+          <div class="meta"><span class="pill">1:64</span><span class="pill">1981</span><span class="pill">Rara</span></div>
+          <p>Campeón de polvo y barro. Incluye pegatinas de patrocinadores inventados.</p>
+          <div class="price">15,00 € <small>Pocas unidades</small></div>
+        </article>
+
+        <article class="card">
+          <div class="stage" style="background:#d6f5ed;color:#1faa8c"><svg viewBox="0 0 200 100"><use href="#coche"/></svg></div>
+          <h3>Menta Cabrio 60</h3>
+          <div class="meta"><span class="pill">1:18</span><span class="pill">1962</span><span class="pill">Premium</span></div>
+          <p>Descapotable con capota móvil, puertas que abren y volante que gira de verdad.</p>
+          <div class="price">79,00 € <small>Pieza de colección</small></div>
+        </article>
+
+        <article class="card">
+          <div class="stage" style="background:#e9dcff;color:#7b3fe4"><svg viewBox="0 0 200 100"><use href="#coche"/></svg></div>
+          <h3>Violeta Furgo 70</h3>
+          <div class="meta"><span class="pill">1:43</span><span class="pill">1970</span><span class="pill">Común</span></div>
+          <p>La furgoneta de los veranos eternos, con tabla de surf en el techo.</p>
+          <div class="price">22,00 € <small>En stock</small></div>
+        </article>
+
+        <article class="card">
+          <div class="stage" style="background:#ffd9e4;color:#e0316b"><svg viewBox="0 0 200 100"><use href="#coche"/></svg></div>
+          <h3>Cereza Racer X</h3>
+          <div class="meta"><span class="pill">1:64</span><span class="pill">1999</span><span class="pill">Muy rara</span></div>
+          <p>Prototipo de la última serie del taller. Solo se fabricaron 500 unidades.</p>
+          <div class="price">38,00 € <small>Agotándose</small></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESCALAS -->
+  <section id="escalas">
+    <div class="wrap">
+      <span class="kicker">Tamaños</span>
+      <h2>Elige tu escala</h2>
+      <p class="sub">Cada escala tiene su público. ¿Cuál será la tuya?</p>
+      <div class="scales">
+        <div class="scale"><div class="big">1:64</div><h3>Bolsillo</h3><p>Unos 7 cm. Perfectas para coleccionar a lo grande sin que se acabe el espacio.</p></div>
+        <div class="scale"><div class="big">1:43</div><h3>Vitrina</h3><p>Unos 10 cm. El equilibrio ideal entre detalle y tamaño. La favorita de los veteranos.</p></div>
+        <div class="scale"><div class="big">1:18</div><h3>Exposición</h3><p>Unos 25 cm. Piezas con motor visible, puertas y maletero practicables.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORIA -->
+  <section id="historia">
+    <div class="wrap">
+      <span class="kicker">Nuestro camino</span>
+      <h2>Una historia en cuatro paradas</h2>
+      <div class="timeline">
+        <div class="t-item"><b>2009 ·</b> Dos amigos juntan sus coches de la infancia en un garaje y deciden catalogarlos.</div>
+        <div class="t-item"><b>2013 ·</b> Nace el primer catálogo online con 200 modelos y su propia numeración.</div>
+        <div class="t-item"><b>2018 ·</b> Se abre el club de socios y el mercado de intercambio entre coleccionistas.</div>
+        <div class="t-item"><b>2024 ·</b> Lanzamos nuestra primera serie propia en edición limitada.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLUB -->
+  <section class="club" id="club">
+    <div class="wrap">
+      <div>
+        <span class="kicker" style="color:var(--sun)">Club Garaje</span>
+        <h2>Entra en el club de los coleccionistas</h2>
+        <ul>
+          <li>Acceso anticipado a nuevas series</li>
+          <li>Catálogo digital de tu propia colección</li>
+          <li>Descuentos en restauración</li>
+          <li>Eventos y quedadas de intercambio</li>
+        </ul>
+      </div>
+      <form id="formulario">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" required placeholder="Tu nombre">
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email" required placeholder="tu@correo.com">
+        <label for="escala">Escala favorita</label>
+        <select id="escala">
+          <option>1:64</option><option>1:43</option><option>1:18</option>
+        </select>
+        <label for="msg">Cuéntanos qué coleccionas</label>
+        <textarea id="msg" rows="3" placeholder="Mi pieza favorita es..."></textarea>
+        <button class="btn" type="submit">Quiero unirme</button>
+        <p class="ok" id="ok">¡Gracias! (Es una demo: no se envía ningún dato.)</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><strong>Garaje Minúsculo</strong> · Empresa ficticia creada con fines demostrativos.</p>
+    <p>Todos los nombres, modelos y marcas son inventados. © 2026</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('formulario').addEventListener('submit', function(e){
+    e.preventDefault();
+    document.getElementById('ok').style.display = 'block';
+    this.reset();
+  });
+</script>
+</body>
+</html>
